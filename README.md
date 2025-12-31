@@ -1,3 +1,4 @@
+[![npm](https://img.shields.io/npm/v/draftify-react)](https://www.npmjs.com/package/draftify-react)
 # Draftify React ✨
 
 **A ready-to-use React editor built on top of Draftify**
@@ -8,7 +9,6 @@ This package focuses purely on **UI and interaction**.
 All document logic, schemas, validation, and export utilities live in `draftify`.
 
 ---
-[![npm](https://img.shields.io/npm/v/draftify-react)](https://www.npmjs.com/package/draftify-react)
 ## ⚠️ Important Dependency Notice
 
 `draftify-react` **does not work on its own**.
