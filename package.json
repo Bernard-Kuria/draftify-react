@@ -1,0 +1,49 @@
+{
+  "name": "draftify-react",
+  "version": "0.1.5",
+  "type": "module",
+  "main": "dist/draftify-react.umd.js",
+  "module": "dist/draftify-react.es.js",
+  "types": "index.d.ts",
+  "files": [
+    "dist",
+    "index.d.ts"
+  ],
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./dist/draftify-react.es.js",
+      "require": "./dist/draftify-react.umd.js"
+    },
+    "./styles.css": "./dist/draftify-react.css"
+  },
+  "style": "dist/draftify-react.css",
+  "scripts": {
+    "dev": "vite",
+    "build:css": "npx @tailwindcss/cli -i ./src/draftify.css -o ./dist/draftify-react.css --minify",
+    "build": "vite build && npm run build:css",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "@vitejs/plugin-react": "^5.0.4",
+    "tailwindcss": "^4.1.18",
+    "vite": "^7.1.7"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^7.1.0",
+    "@fortawesome/free-regular-svg-icons": "^7.1.0",
+    "@fortawesome/free-solid-svg-icons": "^7.1.0",
+    "@fortawesome/react-fontawesome": "^3.1.0",
+    "@tailwindcss/vite": "^4.1.18",
+    "browser-image-compression": "^2.0.2",
+    "draftify": "^0.1.1",
+    "framer-motion": "^12.23.24",
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
+}

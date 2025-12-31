@@ -1,0 +1,64 @@
+@source "../**/*.{js,jsx,ts,tsx}";
+
+@import "tailwindcss";
+
+@theme {
+  --draftify-theme-color: rgb(59, 130, 246);
+  --hovered-draftify-theme-color: rgb(30, 64, 175);
+}
+
+@utility draftify-container {
+  @apply relative flex flex-col md:gap-2.5 gap-5 w-full min-h-112.5 h-fit border border-(--draftify-theme-color) rounded-2xl p-2 md:p-5 bg-white;
+}
+
+@utility doc-metadata-prompt {
+  @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white border border-(--draftify-theme-color) rounded-2xl p-5 shadow-lg z-10;
+}
+
+@utility editor-area {
+  @apply flex-1 border border-(--draftify-theme-color) rounded-2xl md:p-5 p-[2.5_0];
+}
+
+@utility output-area {
+  @apply grid gap-2.5 border border-(--draftify-theme-color) rounded-2xl p-3 md:p-5;
+}
+
+@utility block-container {
+  @apply flex items-center gap-1.25 rounded-md p-1.25 transition-colors;
+}
+
+@utility logo-text {
+  @apply bg-linear-to-br from-blue-800 to-purple-500 bg-clip-text text-transparent;
+}
+
+@utility heading {
+  @apply w-full outline-none text-2xl font-semibold;
+}
+
+@utility subheading {
+  @apply w-full outline-none text-[20px] font-semibold;
+}
+
+@utility paragraph {
+  @apply w-full h-fit outline-none;
+}
+
+@utility quote {
+  @apply w-full border-l-4 outline-none text-[18px] italic pl-2;
+}
+
+@utility list {
+  @apply outline-none text-sm;
+}
+
+@utility link {
+  @apply text-(--hovered-draftify-theme-color) w-full outline-none text-sm;
+}
+
+@utility code {
+  @apply font-mono bg-black text-white p-2 w-full whitespace-pre-wrap;
+}
+
+@utility media {
+  @apply object-cover w-full h-full;
+}
