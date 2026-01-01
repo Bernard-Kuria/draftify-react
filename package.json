@@ -1,6 +1,6 @@
 {
-  "name": "draftify-react",
-  "version": "0.1.5",
+  "name": "@bernard-kuria/draftify-react",
+  "version": "0.1.6",
   "type": "module",
   "main": "dist/draftify-react.umd.js",
   "module": "dist/draftify-react.es.js",
@@ -45,5 +45,9 @@
     "framer-motion": "^12.23.24",
     "react": ">=18",
     "react-dom": ">=18"
+  },
+  "repository": "https://github.com/Bernard-Kuria/draftify-react.git",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   }
 }

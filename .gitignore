@@ -27,3 +27,6 @@ VERSION_2_PLAN.md
 
 # Txt files
 *.txt
+
+# temporary files
+.npmrc
