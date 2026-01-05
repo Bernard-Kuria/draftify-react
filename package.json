@@ -1,6 +1,6 @@
 {
   "name": "draftify-react",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "type": "module",
   "main": "dist/draftify-react.umd.js",
   "module": "dist/draftify-react.es.js",

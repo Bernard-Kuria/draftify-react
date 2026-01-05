@@ -190,12 +190,48 @@ export interface DraftifyReactProps {
   blocksData: DraftifyBlock[];
   modifyBlocks: React.Dispatch<React.SetStateAction<DraftifyBlock[]>>;
   options: string[];
-  CustomEditor1?: HTMLElement | JSX.Element;
-  CustomEditor2?: HTMLElement | JSX.Element;
-  CustomEditor3?: HTMLElement | JSX.Element;
-  CustomOutput1?: HTMLElement | JSX.Element;
-  CustomOutput2?: HTMLElement | JSX.Element;
-  CustomOutput3?: HTMLElement | JSX.Element;
+  CustomEditor1?: ({
+    customBlock,
+    modifyCustom,
+  }: {
+    customBlock: any;
+    modifyCustom: any;
+  }) => HTMLElement | JSX.Element;
+  CustomEditor2?: ({
+    customBlock,
+    modifyCustom,
+  }: {
+    customBlock: any;
+    modifyCustom: any;
+  }) => HTMLElement | JSX.Element;
+  CustomEditor3?: ({
+    customBlock,
+    modifyCustom,
+  }: {
+    customBlock: any;
+    modifyCustom: any;
+  }) => HTMLElement | JSX.Element;
+  CustomOutput1?: ({
+    customBlock,
+    modifyCustom,
+  }: {
+    customBlock: any;
+    modifyCustom: any;
+  }) => HTMLElement | JSX.Element;
+  CustomOutput2?: ({
+    customBlock,
+    modifyCustom,
+  }: {
+    customBlock: any;
+    modifyCustom: any;
+  }) => HTMLElement | JSX.Element;
+  CustomOutput3?: ({
+    customBlock,
+    modifyCustom,
+  }: {
+    customBlock: any;
+    modifyCustom: any;
+  }) => HTMLElement | JSX.Element;
   defaultCustomData1?: Object;
   defaultCustomData2?: Object;
   defaultCustomData3?: Object;
@@ -205,9 +241,27 @@ declare function DraftifyReact(props: DraftifyReactProps): JSX.Element;
 
 export interface ReaderProps {
   blocksData: DraftifyBlock[];
-  CustomOutput1?: HTMLElement | JSX.Element;
-  CustomOutput2?: HTMLElement | JSX.Element;
-  CustomOutput3?: HTMLElement | JSX.Element;
+  CustomOutput1?: ({
+    customBlock,
+    modifyCustom,
+  }: {
+    customBlock: any;
+    modifyCustom: any;
+  }) => HTMLElement | JSX.Element;
+  CustomOutput2?: ({
+    customBlock,
+    modifyCustom,
+  }: {
+    customBlock: any;
+    modifyCustom: any;
+  }) => HTMLElement | JSX.Element;
+  CustomOutput3?: ({
+    customBlock,
+    modifyCustom,
+  }: {
+    customBlock: any;
+    modifyCustom: any;
+  }) => HTMLElement | JSX.Element;
 }
 
 declare function DraftifyBlocksReader(props: ReaderProps): JSX.Element;
