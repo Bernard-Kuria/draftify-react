@@ -42,6 +42,7 @@ export function useDraftifyReact({
   defaultCustomData1,
   defaultCustomData2,
   defaultCustomData3,
+  localStorageEnable,
 }) {
   // Document state
   const [doc, setDoc] = useState({
@@ -73,16 +74,23 @@ export function useDraftifyReact({
       );
     }
 
-    if (typeof window !== "undefined" && localStorage.getItem("draftifyDoc")) {
-      const saved = localStorage.getItem("draftifyDoc");
-      const parsedDoc = JSON.parse(saved);
-      setDoc(parsedDoc);
-      setDocTitle(parsedDoc.metadata?.docTitle || "");
-      setDescription(parsedDoc.metadata?.description || "");
-      setAuthor(parsedDoc.metadata?.author || "");
-      modifyBlocks(
-        normalizeDocument(parsedDoc).blocks || normalizeBlock(blocksData)
-      );
+    if (localStorageEnable) {
+      if (
+        typeof window !== "undefined" &&
+        localStorage.getItem("draftifyDoc")
+      ) {
+        const saved = localStorage.getItem("draftifyDoc");
+        const parsedDoc = JSON.parse(saved);
+        setDoc(parsedDoc);
+        setDocTitle(parsedDoc.metadata?.docTitle || "");
+        setDescription(parsedDoc.metadata?.description || "");
+        setAuthor(parsedDoc.metadata?.author || "");
+        modifyBlocks(
+          normalizeDocument(parsedDoc).blocks || normalizeBlock(blocksData)
+        );
+      } else {
+        modifyBlocks(normalizeBlock(blocksData));
+      }
     } else {
       modifyBlocks(normalizeBlock(blocksData));
     }
@@ -110,7 +118,7 @@ export function useDraftifyReact({
       );
     };
 
-    saveBlockData(blocksData);
+    localStorageEnable && saveBlockData(blocksData);
   }, [blocksData, doc]);
 
   // Update document metadata whenever related states change

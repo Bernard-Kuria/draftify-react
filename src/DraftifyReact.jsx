@@ -40,6 +40,12 @@ export default function DraftifyReact({
   defaultCustomData1,
   defaultCustomData2,
   defaultCustomData3,
+
+  // enable localStorage
+  localStorageEnable,
+
+  // enable Draftify background
+  backgroundEnable,
 }) {
   const {
     // current view
@@ -103,13 +109,14 @@ export default function DraftifyReact({
     defaultCustomData1,
     defaultCustomData2,
     defaultCustomData3,
+    localStorageEnable,
   });
 
   useGenerateGrid(setGridDots);
 
   return (
     <div className="draftify-root">
-      <BackGround gridDots={gridDots} />
+      {backgroundEnable && <BackGround gridDots={gridDots} />}
 
       <div className="draftify-container">
         <ToolBar

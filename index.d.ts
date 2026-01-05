@@ -188,7 +188,9 @@ export function useDraftifyReact(
 
 export interface DraftifyReactProps {
   blocksData: DraftifyBlock[];
+
   modifyBlocks: React.Dispatch<React.SetStateAction<DraftifyBlock[]>>;
+
   options: string[];
   CustomEditor1?: ({
     customBlock,
@@ -197,6 +199,7 @@ export interface DraftifyReactProps {
     customBlock: any;
     modifyCustom: any;
   }) => HTMLElement | JSX.Element;
+
   CustomEditor2?: ({
     customBlock,
     modifyCustom,
@@ -204,6 +207,7 @@ export interface DraftifyReactProps {
     customBlock: any;
     modifyCustom: any;
   }) => HTMLElement | JSX.Element;
+
   CustomEditor3?: ({
     customBlock,
     modifyCustom,
@@ -211,6 +215,7 @@ export interface DraftifyReactProps {
     customBlock: any;
     modifyCustom: any;
   }) => HTMLElement | JSX.Element;
+
   CustomOutput1?: ({
     customBlock,
     modifyCustom,
@@ -218,6 +223,7 @@ export interface DraftifyReactProps {
     customBlock: any;
     modifyCustom: any;
   }) => HTMLElement | JSX.Element;
+
   CustomOutput2?: ({
     customBlock,
     modifyCustom,
@@ -225,6 +231,7 @@ export interface DraftifyReactProps {
     customBlock: any;
     modifyCustom: any;
   }) => HTMLElement | JSX.Element;
+
   CustomOutput3?: ({
     customBlock,
     modifyCustom,
@@ -232,9 +239,14 @@ export interface DraftifyReactProps {
     customBlock: any;
     modifyCustom: any;
   }) => HTMLElement | JSX.Element;
+
   defaultCustomData1?: Object;
   defaultCustomData2?: Object;
   defaultCustomData3?: Object;
+
+  localStorageEnable?: boolean;
+
+  backgroundEnable?: boolean;
 }
 
 declare function DraftifyReact(props: DraftifyReactProps): JSX.Element;
