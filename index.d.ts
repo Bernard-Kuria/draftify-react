@@ -247,6 +247,8 @@ export interface DraftifyReactProps {
   localStorageEnable?: boolean;
 
   backgroundEnable?: boolean;
+
+  DraftifyBackground?: string;
 }
 
 declare function DraftifyReact(props: DraftifyReactProps): JSX.Element;

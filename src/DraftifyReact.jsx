@@ -46,6 +46,9 @@ export default function DraftifyReact({
 
   // enable Draftify background
   backgroundEnable,
+
+  // draftify container background set
+  DraftifyBackground,
 }) {
   const {
     // current view
@@ -118,7 +121,10 @@ export default function DraftifyReact({
     <div className="draftify-root">
       {backgroundEnable && <BackGround gridDots={gridDots} />}
 
-      <div className="draftify-container">
+      <div
+        style={{ backgroundColor: DraftifyBackground }}
+        className="draftify-container"
+      >
         <ToolBar
           view={view}
           setView={setView}
