@@ -22,7 +22,7 @@
   border: 1px solid var(--draftify-theme-color);
   border-radius: 16px;
   padding: 8px;
-  background-color: white;
+  background-color: transparent;
 }
 
 @media (min-width: 768px) {
