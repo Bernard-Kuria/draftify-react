@@ -9,7 +9,12 @@ import { VideoOutput } from "./blockComponents/Media";
 import { LinkOutput } from "./blockComponents/Link";
 import { CodeOutput } from "./blockComponents/Code";
 
-export default function Reader({ blocksData }) {
+export default function DraftifyBlocksReader({
+  blocksData,
+  CustomOutput1,
+  CustomOutput2,
+  CustomOutput3,
+}) {
   return (
     blocksData.length !== 0 &&
     blocksData.map((block) => {
@@ -34,6 +39,18 @@ export default function Reader({ blocksData }) {
           return <LinkOutput key={block.id} linkBlock={block} />;
         case "code":
           return <CodeOutput key={block.id} codeBlock={block} />;
+        case "custom-1":
+          return CustomOutput1 ? (
+            <CustomOutput1 key={block.id} customBlock={block} />
+          ) : null;
+        case "custom-2":
+          return CustomOutput2 ? (
+            <CustomOutput2 key={block.id} customBlock={block} />
+          ) : null;
+        case "custom-3":
+          return CustomOutput3 ? (
+            <CustomOutput3 key={block.id} customBlock={block} />
+          ) : null;
         default:
           return null;
       }

@@ -20,6 +20,11 @@ export default function Editor({
   modifyVideo,
   modifyLink,
   modifyCode,
+  modifyCustom,
+
+  CustomEditor1,
+  CustomEditor2,
+  CustomEditor3,
 }) {
   switch (block.type) {
     case "heading":
@@ -54,6 +59,18 @@ export default function Editor({
       return <LinkEditor linkBlock={block} modifyLink={modifyLink} />;
     case "code":
       return <CodeEditor codeBlock={block} modifyCode={modifyCode} />;
+    case "custom-1":
+      return CustomEditor1 ? (
+        <CustomEditor1 customBlock={block} modifyCustom={modifyCustom} />
+      ) : null;
+    case "custom-2":
+      return CustomEditor2 ? (
+        <CustomEditor2 customBlock={block} modifyCustom={modifyCustom} />
+      ) : null;
+    case "custom-3":
+      return CustomEditor3 ? (
+        <CustomEditor3 customBlock={block} modifyCustom={modifyCustom} />
+      ) : null;
     default:
       return null;
   }

@@ -1,6 +1,6 @@
 {
-  "name": "@bernard-kuria/draftify-react",
-  "version": "0.1.6",
+  "name": "draftify-react",
+  "version": "0.2.4",
   "type": "module",
   "main": "dist/draftify-react.umd.js",
   "module": "dist/draftify-react.es.js",
@@ -9,6 +9,7 @@
     "dist",
     "index.d.ts"
   ],
+  "style": "./dist/draftify-react.css",
   "exports": {
     ".": {
       "types": "./index.d.ts",
@@ -17,37 +18,29 @@
     },
     "./styles.css": "./dist/draftify-react.css"
   },
-  "style": "dist/draftify-react.css",
   "scripts": {
     "dev": "vite",
-    "build:css": "npx @tailwindcss/cli -i ./src/draftify.css -o ./dist/draftify-react.css --minify",
-    "build": "vite build && npm run build:css",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "peerDependencies": {
     "react": ">=18",
     "react-dom": ">=18"
   },
-  "devDependencies": {
-    "@tailwindcss/cli": "^4.1.18",
-    "@vitejs/plugin-react": "^5.0.4",
-    "tailwindcss": "^4.1.18",
-    "vite": "^7.1.7"
-  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-regular-svg-icons": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.0",
-    "@tailwindcss/vite": "^4.1.18",
     "browser-image-compression": "^2.0.2",
-    "draftify": "^0.1.1",
-    "framer-motion": "^12.23.24",
-    "react": ">=18",
-    "react-dom": ">=18"
+    "framer-motion": "^12.23.24"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.4",
+    "vite": "^7.1.7"
   },
   "repository": "https://github.com/Bernard-Kuria/draftify-react.git",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
+    "registry": "https://registry.npmjs.org/"
   }
 }

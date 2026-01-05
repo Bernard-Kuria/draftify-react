@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Editor from "./components/Editor";
 import Options from "./components/Options";
-import Reader from "./components/Reader";
+import DraftifyBlocksReader from "./components/DraftifyBlocksReader";
 import ToolBar from "./components/ToolBar";
 import Grabber from "./components/Grabber";
 import BackGround from "./components/Background";
@@ -18,7 +18,29 @@ import "./utils/icons";
 
 import "./draftify.css";
 
-export default function DraftifyReact({ blocksData, modifyBlocks }) {
+export default function DraftifyReact({
+  // blocks data & modifier
+  blocksData,
+  modifyBlocks,
+
+  // options
+  options,
+
+  // custom editors
+  CustomEditor1,
+  CustomEditor2,
+  CustomEditor3,
+
+  // custom output
+  CustomOutput1,
+  CustomOutput2,
+  CustomOutput3,
+
+  // default custom data
+  defaultCustomData1,
+  defaultCustomData2,
+  defaultCustomData3,
+}) {
   const {
     // current view
     view,
@@ -60,6 +82,7 @@ export default function DraftifyReact({ blocksData, modifyBlocks }) {
     modifyVideo,
     modifyLink,
     modifyCode,
+    modifyCustom,
 
     // drag and drop handlers
     onDropHandler,
@@ -77,12 +100,15 @@ export default function DraftifyReact({ blocksData, modifyBlocks }) {
   } = useDraftifyReact({
     blocksData,
     modifyBlocks,
+    defaultCustomData1,
+    defaultCustomData2,
+    defaultCustomData3,
   });
 
   useGenerateGrid(setGridDots);
 
   return (
-    <>
+    <div className="draftify-root">
       <BackGround gridDots={gridDots} />
 
       <div className="draftify-container">
@@ -111,10 +137,10 @@ export default function DraftifyReact({ blocksData, modifyBlocks }) {
 
         {view === "editor" && (
           <>
-            <Options handleClick={handleClick} />
+            <Options handleClick={handleClick} options={options} />
             <div className="editor-area" onSubmit={(e) => e.preventDefault()}>
               <motion.div
-                className="grid gap-2.5"
+                style={{ display: "grid", gap: "10px" }}
                 variants={containerVariants}
                 animate="show"
                 exit="hidden"
@@ -150,11 +176,15 @@ export default function DraftifyReact({ blocksData, modifyBlocks }) {
                         modifyVideo={modifyVideo}
                         modifyLink={modifyLink}
                         modifyCode={modifyCode}
+                        modifyCustom={modifyCustom}
+                        CustomEditor1={CustomEditor1}
+                        CustomEditor2={CustomEditor2}
+                        CustomEditor3={CustomEditor3}
                       />
 
                       <FontAwesomeIcon
                         icon={["fas", "trash"]}
-                        className="cursor-pointer hover:text-red-500"
+                        className="delete-icon"
                         onClick={() => handleDelete(b.id)}
                       />
                     </motion.div>
@@ -167,10 +197,15 @@ export default function DraftifyReact({ blocksData, modifyBlocks }) {
 
         {view === "preview" && (
           <div className="output-area" onSubmit={(e) => e.preventDefault()}>
-            <Reader blocksData={blocksData} />
+            <DraftifyBlocksReader
+              blocksData={blocksData}
+              CustomOutput1={CustomOutput1}
+              CustomOutput2={CustomOutput2}
+              CustomOutput3={CustomOutput3}
+            />
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 }

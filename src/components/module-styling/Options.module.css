@@ -1,0 +1,41 @@
+.optionsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+}
+
+@media (min-width: 768px) {
+  .optionsContainer {
+    gap: 10px;
+  }
+}
+
+.optionButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 40px;
+  padding: 8px;
+  border: 2px solid #4b5563;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+@media (min-width: 768px) {
+  .optionButton {
+    font-size: 16px;
+  }
+}
+
+.iconWrapper {
+  display: flex;
+  position: relative;
+}
+
+.subscript {
+  font-size: 12px;
+  line-height: 1;
+}

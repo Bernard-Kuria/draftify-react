@@ -1,11 +1,39 @@
+import { useState } from "react";
+
 export default function Grabber() {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const containerStyle = {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    gap: "3px",
+    width: "15px",
+    height: "100%",
+    border: `1px solid ${isHovered ? "black" : "var(--draftify-theme-color)"}`,
+    borderTopLeftRadius: "5px",
+    borderBottomLeftRadius: "5px",
+    cursor: "move",
+    transition: "border-color 0.2s ease",
+  };
+
+  const dotStyle = {
+    width: "4px",
+    height: "4px",
+    borderRadius: "10px",
+    backgroundColor: isHovered ? "black" : "var(--draftify-theme-color)",
+    alignSelf: "center",
+    transition: "background-color 0.2s ease",
+  };
+
   return (
-    <div className="group flex flex-col justify-center gap-y-[3px] w-[15px] h-full border border-(--draftify-theme-color) hover:border-black rounded-tl-[5px] rounded-bl-[5px] cursor-move">
+    <div
+      style={containerStyle}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       {[1, 2, 3].map((dot) => (
-        <div
-          key={dot}
-          className="w-1 h-1 rounded-2.5 bg-(--draftify-theme-color) group-hover:bg-black self-center"
-        ></div>
+        <div key={dot} style={dotStyle} />
       ))}
     </div>
   );

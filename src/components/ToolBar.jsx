@@ -1,7 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import Tooltip from "./Tooltip";
 
 export default function ToolBar({
@@ -13,95 +11,155 @@ export default function ToolBar({
   handleCopy,
 }) {
   const [copy, setCopy] = useState(false);
-  const themeModeBtn = useRef(null);
+  const [hoveredBtn, setHoveredBtn] = useState(null);
+
   const themeModeToggle = useRef(null);
 
-  function handleThemeBtnClick(view, btn, toggle) {
-    if (!btn || !toggle) return;
-    if (view === "editor") {
-      toggle.style.transform = "translateX(14px)";
-    } else {
-      toggle.style.transform = "translateX(0)";
+  useEffect(() => {
+    if (themeModeToggle.current) {
+      themeModeToggle.current.style.transform =
+        view === "editor" ? "translateX(14px)" : "translateX(1px)";
     }
-  }
+  }, [view]);
 
   useEffect(() => {
-    setTimeout(() => {
-      setCopy(false);
-    }, 3000);
+    if (copy) {
+      const timer = setTimeout(() => setCopy(false), 3000);
+      return () => clearTimeout(timer);
+    }
   }, [copy]);
 
+  // Style Objects
+  const actionButtonStyle = (id) => ({
+    border: "1px solid #d1d5db",
+    borderRadius: "10px",
+    backgroundColor:
+      hoveredBtn === id
+        ? "var(--draftify-theme-color)"
+        : "var(--hovered-draftify-theme-color)",
+    color: "white",
+    fontWeight: hoveredBtn === id ? "600" : "400",
+    padding: "0.25rem",
+    cursor: "pointer",
+    transition: "all 0.2s ease",
+  });
+
+  // Editor-preview toggle
+  const editorPreviewToggle = {
+    width: "30px",
+    height: "16px",
+    border: "1px solid #232323",
+    borderRadius: "1rem",
+    cursor: "pointer",
+    display: "flex",
+    alignItems: "center",
+    padding: "0",
+    position: "relative",
+  };
+
+  // View indicator
+  const viewIndicatorStyle = {
+    width: "12px",
+    height: "12px",
+    borderRadius: "50%",
+    backgroundColor: "#232323",
+    transition: "transform 0.3s ease",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "9px",
+  };
+
   return (
-    <div className="md:h-10">
-      <div className="relative grid md:flex items-center text-[12px] italic gap-2.5">
-        <div className="md:flex gap-2.5 items-center font-bold logo-text text-[20px]">
-          DRAFTIFY PRO{" "}
-          <div className="underline font-normal text-[12px]">
-            Write. Create. Build your story block by block.
-          </div>
+    <div
+      style={{
+        height: "auto",
+        minHeight: "40px",
+        position: "relative",
+        display: "flex",
+        flexWrap: "wrap",
+        alignItems: "center",
+        fontSize: "12px",
+        fontStyle: "italic",
+        gap: "10px",
+      }}
+    >
+      {/* Logo Section */}
+      <div className="logo-text">
+        DRAFTIFY
+        <div className="logo-description">
+          Write. Create. Build your story block by block.
         </div>
-        <div className="md:absolute right-0 flex items-center gap-2.5">
-          <Tooltip text="e.g. for dev dummy data">
-            <button
-              className="border rounded-[10px] bg-(--hovered-draftify-theme-color) text-white hover:font-semibold hover:bg-(--draftify-theme-color) p-1 cursor-pointer"
-              onClick={() => {
-                setPromptAction("downloadJSON");
-                setPromptVisiblility(true);
-              }}
-            >
-              Download JSON <FontAwesomeIcon icon={["fas", "download"]} />
-            </button>
-          </Tooltip>
-          <Tooltip text={`Download as document`}>
-            <button
-              className="border rounded-[10px] bg-(--hovered-draftify-theme-color) text-white hover:font-semibold hover:bg-(--draftify-theme-color) p-1 cursor-pointer"
-              onClick={() => {
-                setPromptAction("exportDocx");
-                setPromptVisiblility(true);
-              }}
-            >
-              Export .docx <FontAwesomeIcon icon={["fas", "download"]} />
-            </button>
-          </Tooltip>
-          <Tooltip text={`copy to clipboard`}>
-            <button
-              className={`p-1 cursor-pointer ${
-                copy
-                  ? "text-green-400"
-                  : "text-(--hovered-draftify-theme-color)"
-              }`}
-            >
-              <FontAwesomeIcon
-                icon={["fas", `${copy ? "check" : "copy"}`]}
-                onClick={() => handleCopy(blocksData, setCopy)}
-              />
-            </button>
-          </Tooltip>
-          <Tooltip text={`toggle btn editor & preview`}>
-            <div
-              ref={themeModeBtn}
-              className="border w-7.5 h-4 rounded-2xl cursor-pointer duration-300 flex items-center p-0"
-              onClick={() => {
-                setView((prev) => (prev === "editor" ? "preview" : "editor"));
-                handleThemeBtnClick(
-                  view,
-                  themeModeBtn.current,
-                  themeModeToggle.current
-                );
-              }}
-            >
-              <div
-                ref={themeModeToggle}
-                className="w-3 h-3 rounded-xl bg-[#232323] duration-300 flex items-center leading-2 justify-center translate-x-px"
-              >
-                <div className="flex items-center h-full text-white -translate-y-0.5">
-                  {view === "editor" ? "e" : "p"}
-                </div>
+      </div>
+
+      {/* Actions Section */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          marginLeft: "auto",
+        }}
+      >
+        <Tooltip text="e.g. for dev dummy data">
+          <button
+            style={actionButtonStyle("json")}
+            onMouseEnter={() => setHoveredBtn("json")}
+            onMouseLeave={() => setHoveredBtn(null)}
+            onClick={() => {
+              setPromptAction("downloadJSON");
+              setPromptVisiblility(true);
+            }}
+          >
+            Download JSON <FontAwesomeIcon icon={["fas", "download"]} />
+          </button>
+        </Tooltip>
+
+        <Tooltip text="Download as document">
+          <button
+            style={actionButtonStyle("docx")}
+            onMouseEnter={() => setHoveredBtn("docx")}
+            onMouseLeave={() => setHoveredBtn(null)}
+            onClick={() => {
+              setPromptAction("exportDocx");
+              setPromptVisiblility(true);
+            }}
+          >
+            Export .docx <FontAwesomeIcon icon={["fas", "download"]} />
+          </button>
+        </Tooltip>
+
+        <Tooltip text="copy to clipboard">
+          <button
+            style={{
+              padding: "0.25rem",
+              cursor: "pointer",
+              border: "none",
+              background: "none",
+              color: copy ? "#4ade80" : "var(--hovered-draftify-theme-color)",
+            }}
+            onClick={() => handleCopy(blocksData, setCopy)}
+          >
+            <FontAwesomeIcon icon={["fas", copy ? "check" : "copy"]} />
+          </button>
+        </Tooltip>
+
+        <Tooltip text="toggle btn editor & preview">
+          <div
+            style={editorPreviewToggle}
+            onClick={() =>
+              setView((prev) => (prev === "editor" ? "preview" : "editor"))
+            }
+          >
+            <div ref={themeModeToggle} style={viewIndicatorStyle}>
+              <div style={{ color: "white", transform: "translateY(-1px)" }}>
+                {view === "editor" ? "e" : "p"}
               </div>
-            </div>{" "}
-          </Tooltip>
-          <div className="w-25">viewing {view}</div>
-        </div>
+            </div>
+          </div>
+        </Tooltip>
+
+        <div style={{ width: "100px" }}>viewing {view}</div>
       </div>
     </div>
   );

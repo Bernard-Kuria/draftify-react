@@ -1,7 +1,16 @@
+const paragraphStyles = {
+  fontFamily:
+    "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",
+  border: "none",
+  outline: "none",
+  width: "100%",
+  height: "fit-content",
+};
+
 export default function ParagraphEditor({ paragraphBlock, modifyParagraph }) {
   return (
     <textarea
-      className="border-b paragraph"
+      style={{ ...paragraphStyles, borderBottom: "1px solid #232323" }}
       placeholder="Write something..."
       autoFocus
       value={paragraphBlock.data.text}
@@ -17,7 +26,7 @@ export default function ParagraphEditor({ paragraphBlock, modifyParagraph }) {
 
 export function ParagraphOutput({ paragraphBlock }) {
   return (
-    <p key={paragraphBlock.id} className="paragraph">
+    <p key={paragraphBlock.id} style={paragraphStyles}>
       {paragraphBlock.data.text}
     </p>
   );

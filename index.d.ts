@@ -1,5 +1,7 @@
 import type { JSX } from "react";
 
+import * as React from "react";
+
 import type { DraftifyBlock } from "draftify";
 
 /* ─────────────────────────────
@@ -18,7 +20,10 @@ export type BlockType =
   | "image"
   | "video"
   | "link"
-  | "code";
+  | "code"
+  | "custom-1"
+  | "custom-2"
+  | "custom-3";
 
 export interface BaseBlock {
   id: string;
@@ -97,6 +102,11 @@ export interface ModifyCodePayload {
   code: string;
 }
 
+export interface ModifyCustomPayload {
+  customBlockId: string;
+  payload: any;
+}
+
 /* ─────────────────────────────
    Hook return type
 ───────────────────────────── */
@@ -145,6 +155,7 @@ export interface UseDraftifyReactReturn {
   modifyVideo: (p: ModifyVideoPayload) => void;
   modifyLink: (p: ModifyLinkPayload) => void;
   modifyCode: (p: ModifyCodePayload) => void;
+  modifyCustom: (p: ModifyCustomPayload) => void;
 
   /* clipboard / export */
   handleCopy: () => void;
@@ -172,21 +183,149 @@ export function useDraftifyReact(
 ): UseDraftifyReactReturn;
 
 /* ─────────────────────────────
-   Component export
+   Components
 ───────────────────────────── */
-interface DraftifyReactProps {
+
+export interface DraftifyReactProps {
   blocksData: DraftifyBlock[];
   modifyBlocks: React.Dispatch<React.SetStateAction<DraftifyBlock[]>>;
+  options: string[];
+  CustomEditor1?: HTMLElement | JSX.Element;
+  CustomEditor2?: HTMLElement | JSX.Element;
+  CustomEditor3?: HTMLElement | JSX.Element;
+  CustomOutput1?: HTMLElement | JSX.Element;
+  CustomOutput2?: HTMLElement | JSX.Element;
+  CustomOutput3?: HTMLElement | JSX.Element;
+  defaultCustomData1?: Object;
+  defaultCustomData2?: Object;
+  defaultCustomData3?: Object;
 }
 
 declare function DraftifyReact(props: DraftifyReactProps): JSX.Element;
 
-interface ReaderProps {
+export interface ReaderProps {
   blocksData: DraftifyBlock[];
+  CustomOutput1?: HTMLElement | JSX.Element;
+  CustomOutput2?: HTMLElement | JSX.Element;
+  CustomOutput3?: HTMLElement | JSX.Element;
 }
 
-declare function Reader(props: ReaderProps): JSX.Element;
+declare function DraftifyBlocksReader(props: ReaderProps): JSX.Element;
+
+/* ─────────────────────────────
+   Hooks
+───────────────────────────── */
+
+export interface UseDraftifyReactProps {
+  blocksData: DraftifyBlock[];
+  modifyBlocks: React.Dispatch<React.SetStateAction<DraftifyBlock[]>>;
+  defaultCustomData1: any;
+  defaultCustomData2: any;
+  defaultCustomData3: any;
+}
+
+export declare function useDraftifyReact(props: UseDraftifyReactProps): {
+  /* view */
+  view: string;
+  setView: React.Dispatch<React.SetStateAction<string>>;
+
+  /* background grid */
+  gridDots: any[];
+  setGridDots: React.Dispatch<React.SetStateAction<any[]>>;
+
+  /* document metadata */
+  docTitle: string;
+  setDocTitle: React.Dispatch<React.SetStateAction<string>>;
+  description: string;
+  setDescription: React.Dispatch<React.SetStateAction<string>>;
+  author: string;
+  setAuthor: React.Dispatch<React.SetStateAction<string>>;
+
+  /* prompt */
+  promptAction: string;
+  setPromptAction: React.Dispatch<React.SetStateAction<string>>;
+  promptVisibility: boolean;
+  setPromptVisiblility: React.Dispatch<React.SetStateAction<boolean>>;
+  handlePromptAction: (action: string, option?: string) => void;
+
+  /* blocks */
+  blocksData: DraftifyBlock[];
+  handleClick: (type: string, cells?: number) => void;
+
+  /* block modifiers */
+  modifyHeading: (args: any) => void;
+  modifySubheading: (args: any) => void;
+  modifyParagraph: (args: any) => void;
+  modifyQuote: (args: any) => void;
+  modifyList: (args: any) => void;
+  modifyTable: (args: any) => void;
+  modifyImage: (args: any) => void;
+  modifyVideo: (args: any) => void;
+  modifyLink: (args: any) => void;
+  modifyCode: (args: any) => void;
+  modifyCustom: (args: any) => void;
+
+  /* delete */
+  handleDelete: (id: string) => void;
+
+  /* drag & drop */
+  onDropHandler: (e: React.DragEvent, index: number) => void;
+  onDragStart: (e: React.DragEvent, index: number) => void;
+  onDragEnd: (e: React.DragEvent) => void;
+  onDragEnter: (e: React.DragEvent) => void;
+  onDragLeave: (e: React.DragEvent) => void;
+
+  /* animations */
+  containerVariants: Record<string, any>;
+  itemVariants: Record<string, any>;
+  transitions: Record<string, any>;
+  whileHover: Record<string, any>;
+
+  /* utils */
+  handleCopy: (content: any) => void;
+};
+
+/* ─────────────────────────────
+   Media utilities
+───────────────────────────── */
+
+declare function dropHandler(
+  e: React.DragEvent,
+  setFile: React.Dispatch<React.SetStateAction<File | null>>,
+  setFileName: React.Dispatch<React.SetStateAction<string>>,
+  setCompressing: React.Dispatch<React.SetStateAction<boolean>>,
+  setCompressionProgress: React.Dispatch<React.SetStateAction<number>>
+): Promise<void>;
+
+declare function onFileChange(
+  e: React.ChangeEvent<HTMLInputElement>,
+  setFile: React.Dispatch<React.SetStateAction<File | null>>,
+  setFileName: React.Dispatch<React.SetStateAction<string>>,
+  setCompressing: React.Dispatch<React.SetStateAction<boolean>>,
+  setCompressionProgress: React.Dispatch<React.SetStateAction<number>>
+): Promise<void>;
+
+declare function dragHandler(
+  e: React.DragEvent,
+  output: React.RefObject<HTMLElement | null>
+): void;
+
+declare function dragLeaveHandler(
+  e: React.DragEvent | React.MouseEvent<HTMLDivElement, MouseEvent>,
+  output: React.RefObject<HTMLElement | null>
+): void;
+
+/* ─────────────────────────────
+   Exports
+───────────────────────────── */
 
 export default DraftifyReact;
 
-export { DraftifyReact, Reader };
+export {
+  DraftifyReact,
+  DraftifyBlocksReader,
+  dropHandler,
+  onFileChange,
+  dragHandler,
+  dragLeaveHandler,
+};

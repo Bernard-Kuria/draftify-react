@@ -55,7 +55,7 @@ export async function dropHandler(
         setCompressionProgress
       );
 
-      setFile(URL.createObjectURL(compressed));
+      setFile(compressed);
       setFileName(compressed.name);
     }
   }
@@ -77,7 +77,7 @@ export async function onFileChange(
     setCompressionProgress
   );
 
-  setFile(URL.createObjectURL(compressed));
+  setFile(compressed);
   setFileName(compressed.name);
 }
 

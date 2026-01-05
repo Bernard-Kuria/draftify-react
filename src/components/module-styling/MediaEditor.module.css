@@ -1,0 +1,105 @@
+/* Scoped variables for 2026 styling */
+.container {
+  border: 1px solid #e5e7eb;
+  width: 100%;
+  height: 275px; /* Equivalent to h-68.75 (17.18rem) */
+  position: relative;
+  overflow: hidden;
+}
+
+.mediaWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  color: var(--draftify-theme-color);
+  font-weight: 500;
+}
+
+.mediaItem {
+  flex: 1;
+  width: 100%;
+  object-fit: cover;
+}
+
+.footerOverlay {
+  bottom: 2px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  width: 100%;
+  height: 25px;
+  font-size: 12px;
+}
+
+.refreshButton {
+  display: flex;
+  gap: 8px;
+  border: 1px solid currentColor;
+  border-radius: 5px;
+  align-items: center;
+  padding: 0 4px;
+  background-color: var(--draftify-theme-color);
+  color: white;
+  cursor: pointer;
+}
+
+/* Upload Dropzone Styles */
+.dropzone {
+  border: 2px dashed #d1d5db;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.uploadLabel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.uploadIconCircle {
+  border: 1px solid #d1d5db;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  font-size: 20px;
+}
+
+/* Progress Donut Styles */
+.donutContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.donutOuter {
+  display: grid;
+  place-items: center;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+}
+
+.donutInner {
+  width: 120px;
+  height: 120px;
+  background-color: white;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: var(--draftify-theme-color);
+}

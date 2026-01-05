@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function DocMetadataPrompt({
@@ -11,26 +12,46 @@ export default function DocMetadataPrompt({
   handlePromptAction,
   setPromptVisiblility,
 }) {
+  const [hoverBtn, setHoverBtn] = useState(null);
+
+  // Common styles
+  const inputStyle = {
+    width: "100%",
+    border: "1px solid #d1d5db",
+    borderRadius: "0.375rem",
+    padding: "0.25rem",
+    marginTop: "0.25rem",
+    marginBottom: "0.75rem",
+  };
+
+  const buttonBase = {
+    flex: 1,
+    padding: "0.5rem 1rem",
+    borderRadius: "0.375rem",
+    cursor: "pointer",
+    border: "none",
+    transition: "background-color 0.2s",
+  };
+
   return (
-    <div className="doc-metadata-prompt">
-      <div className="flex">
-        <div className=" flex-1 mb-2.5">
+    <div style={{ padding: "1rem" }}>
+      <div style={{ display: "flex" }}>
+        <div style={{ flex: 1, marginBottom: "0.625rem" }}>
           Would you like to add metadata before downloading?
         </div>
-        <div>
-          <FontAwesomeIcon
-            icon={["fas", "xmark"]}
-            className="cursor-pointer"
-            onClick={() => setPromptVisiblility(false)}
-          />
+        <div
+          style={{ cursor: "pointer" }}
+          onClick={() => setPromptVisiblility(false)}
+        >
+          <FontAwesomeIcon icon={["fas", "xmark"]} />
         </div>
       </div>
-      <div className="font-semibold">
+      <div style={{ fontWeight: 600 }}>
         <div>
           <div> document title: (optional)</div>
           <input
             type="text"
-            className="w-full border rounded-md p-1"
+            style={inputStyle}
             value={docTitle}
             onChange={(e) => setDocTitle(e.target.value)}
           />
@@ -39,7 +60,7 @@ export default function DocMetadataPrompt({
           <div>description: (optional)</div>
           <textarea
             name="description"
-            className="w-full border rounded-md p-1"
+            style={{ ...inputStyle, minHeight: "60px" }}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
@@ -48,21 +69,33 @@ export default function DocMetadataPrompt({
           <div>author: (optional)</div>
           <input
             type="text"
-            className="w-full border rounded-md p-1"
+            style={inputStyle}
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
           />
         </div>
       </div>
-      <div className="mt-4 flex gap-2">
+      <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem" }}>
         <button
-          className="flex-1 px-4 py-2 bg-gray-300 text-black rounded-md hover:bg-gray-400 cursor-pointer"
+          style={{
+            ...buttonBase,
+            backgroundColor: hoverBtn === "ignore" ? "#9ca3af" : "#d1d5db",
+            color: "black",
+          }}
+          onMouseEnter={() => setHoverBtn("ignore")}
+          onMouseLeave={() => setHoverBtn(null)}
           onClick={() => handlePromptAction(promptAction, "ignore")}
         >
           Ignore
         </button>
         <button
-          className="flex-1 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 cursor-pointer"
+          style={{
+            ...buttonBase,
+            backgroundColor: hoverBtn === "add" ? "#2563eb" : "#3b82f6",
+            color: "white",
+          }}
+          onMouseEnter={() => setHoverBtn("add")}
+          onMouseLeave={() => setHoverBtn(null)}
           onClick={() => handlePromptAction(promptAction, "add")}
         >
           Add

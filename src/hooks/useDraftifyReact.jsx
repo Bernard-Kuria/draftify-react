@@ -12,6 +12,7 @@ import {
   createVideoBlock,
   createLinkBlock,
   createCodeBlock,
+  createCustomBlock,
 
   // modifiers
   modifyHeadingBlock,
@@ -24,6 +25,7 @@ import {
   modifyVideoBlock,
   modifyLinkBlock,
   modifyCodeBlock,
+  modifyCustomBlock,
 
   // utilities
   imageToBase64,
@@ -34,7 +36,13 @@ import {
   handleDownloadJSON,
 } from "draftify";
 
-export function useDraftifyReact({ blocksData, modifyBlocks }) {
+export function useDraftifyReact({
+  blocksData,
+  modifyBlocks,
+  defaultCustomData1,
+  defaultCustomData2,
+  defaultCustomData3,
+}) {
   // Document state
   const [doc, setDoc] = useState({
     metadata: {},
@@ -175,6 +183,24 @@ export function useDraftifyReact({ blocksData, modifyBlocks }) {
       case "code":
         modifyBlocks((prev) => [...prev, createCodeBlock()]);
         break;
+      case "custom-1":
+        modifyBlocks((prev) => [
+          ...prev,
+          createCustomBlock("custom-1", defaultCustomData1),
+        ]);
+        break;
+      case "custom-2":
+        modifyBlocks((prev) => [
+          ...prev,
+          createCustomBlock("custom-2", defaultCustomData2),
+        ]);
+        break;
+      case "custom-3":
+        modifyBlocks((prev) => [
+          ...prev,
+          createCustomBlock("custom-3", defaultCustomData3),
+        ]);
+        break;
 
       default:
         break;
@@ -233,6 +259,10 @@ export function useDraftifyReact({ blocksData, modifyBlocks }) {
 
   const modifyCode = ({ codeBlockId, language, code }) => {
     modifyBlocks((prev) => modifyCodeBlock(prev, codeBlockId, language, code));
+  };
+
+  const modifyCustom = ({ customBlockId, data }) => {
+    modifyBlocks((prev) => modifyCustomBlock(prev, customBlockId, data));
   };
 
   // Deleting a block
@@ -353,6 +383,7 @@ export function useDraftifyReact({ blocksData, modifyBlocks }) {
     modifyVideo,
     modifyLink,
     modifyCode,
+    modifyCustom,
 
     // drag and drop handlers
     onDropHandler,

@@ -1,5 +1,14 @@
 import { useState, useEffect } from "react";
 
+const linkStyles = {
+  fontFamily:
+    "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol",
+  border: "none",
+  outline: "none",
+  width: "100%",
+  fontSize: "14px",
+};
+
 export default function LinkEditor({ linkBlock, modifyLink }) {
   const [linkText, setLinkText] = useState(linkBlock.data.linkText);
   const [url, setUrl] = useState(linkBlock.data.url);
@@ -9,20 +18,28 @@ export default function LinkEditor({ linkBlock, modifyLink }) {
   }, [linkText, url, linkBlock.id]);
 
   return (
-    <div className="flex">
+    <div style={{ display: "flex" }}>
       <input
+        style={{
+          ...linkStyles,
+          color: "#232323",
+          borderBottom: "1px solid #232323",
+        }}
         type="text"
         placeholder="Enter link text..."
-        className="flex-1 border-b link"
         autoFocus
         value={linkBlock.data.linkText}
         onChange={(e) => setLinkText(e.target.value)}
       />
       <span>[</span>
       <input
+        style={{
+          ...linkStyles,
+          color: "var(--hovered-draftify-theme-color)",
+          borderBottom: "1px solid #232323",
+        }}
         type="url"
         placeholder="url"
-        className="flex-1 border-b link"
         autoFocus
         value={linkBlock.data.url}
         onChange={(e) => setUrl(e.target.value)}
@@ -34,7 +51,11 @@ export default function LinkEditor({ linkBlock, modifyLink }) {
 
 export function LinkOutput({ linkBlock }) {
   return (
-    <a key={linkBlock.id} href={linkBlock.data.url} className="link">
+    <a
+      style={{ ...linkStyles, color: "#3b82f6" }}
+      key={linkBlock.id}
+      href={linkBlock.data.url}
+    >
       {linkBlock.data.linkText}
     </a>
   );
