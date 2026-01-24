@@ -2,7 +2,7 @@ import type { JSX } from "react";
 
 import * as React from "react";
 
-import type { DraftifyBlock } from "draftify";
+import type { DraftifyBlock, DraftifyDocument } from "draftify";
 
 /* ─────────────────────────────
    Core domain types
@@ -136,7 +136,7 @@ export interface UseDraftifyReactReturn {
 
   promptAction: string;
   setPromptAction: (v: string) => void;
-  handlePromptAction: (action: string, option?: string) => void;
+  handlePromptAction: (action: string) => void;
 
   /* blocks */
   blocksData: BaseBlock[];
@@ -179,7 +179,7 @@ export interface UseDraftifyReactReturn {
 ───────────────────────────── */
 
 export function useDraftifyReact(
-  initialBlocks?: InitialBlocks
+  initialBlocks?: InitialBlocks,
 ): UseDraftifyReactReturn;
 
 /* ─────────────────────────────
@@ -187,11 +187,12 @@ export function useDraftifyReact(
 ───────────────────────────── */
 
 export interface DraftifyReactProps {
-  blocksData: DraftifyBlock[];
+  draftifyDoc: DraftifyDocument;
 
-  modifyBlocks: React.Dispatch<React.SetStateAction<DraftifyBlock[]>>;
+  setDoc: React.Dispatch<React.SetStateAction<DraftifyDocument>>;
 
   options: string[];
+
   CustomEditor1?: ({
     customBlock,
     modifyCustom,
@@ -285,8 +286,8 @@ declare function DraftifyBlocksReader(props: ReaderProps): JSX.Element;
 ───────────────────────────── */
 
 export interface UseDraftifyReactProps {
-  blocksData: DraftifyBlock[];
-  modifyBlocks: React.Dispatch<React.SetStateAction<DraftifyBlock[]>>;
+  draftifyDoc: DraftifyDocument;
+  setDoc: React.Dispatch<React.SetStateAction<DraftifyDocument>>;
   defaultCustomData1: any;
   defaultCustomData2: any;
   defaultCustomData3: any;
@@ -314,7 +315,7 @@ export declare function useDraftifyReact(props: UseDraftifyReactProps): {
   setPromptAction: React.Dispatch<React.SetStateAction<string>>;
   promptVisibility: boolean;
   setPromptVisiblility: React.Dispatch<React.SetStateAction<boolean>>;
-  handlePromptAction: (action: string, option?: string) => void;
+  handlePromptAction: (action: string) => void;
 
   /* blocks */
   blocksData: DraftifyBlock[];
@@ -362,7 +363,7 @@ declare function dropHandler(
   setFile: React.Dispatch<React.SetStateAction<File | null>>,
   setFileName: React.Dispatch<React.SetStateAction<string>>,
   setCompressing: React.Dispatch<React.SetStateAction<boolean>>,
-  setCompressionProgress: React.Dispatch<React.SetStateAction<number>>
+  setCompressionProgress: React.Dispatch<React.SetStateAction<number>>,
 ): Promise<void>;
 
 declare function onFileChange(
@@ -370,17 +371,17 @@ declare function onFileChange(
   setFile: React.Dispatch<React.SetStateAction<File | null>>,
   setFileName: React.Dispatch<React.SetStateAction<string>>,
   setCompressing: React.Dispatch<React.SetStateAction<boolean>>,
-  setCompressionProgress: React.Dispatch<React.SetStateAction<number>>
+  setCompressionProgress: React.Dispatch<React.SetStateAction<number>>,
 ): Promise<void>;
 
 declare function dragHandler(
   e: React.DragEvent,
-  output: React.RefObject<HTMLElement | null>
+  output: React.RefObject<HTMLElement | null>,
 ): void;
 
 declare function dragLeaveHandler(
   e: React.DragEvent | React.MouseEvent<HTMLDivElement, MouseEvent>,
-  output: React.RefObject<HTMLElement | null>
+  output: React.RefObject<HTMLElement | null>,
 ): void;
 
 /* ─────────────────────────────

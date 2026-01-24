@@ -24,17 +24,21 @@ export default function DocMetadataPrompt({
     marginBottom: "0.75rem",
   };
 
-  const buttonBase = {
-    flex: 1,
-    padding: "0.5rem 1rem",
-    borderRadius: "0.375rem",
-    cursor: "pointer",
-    border: "none",
-    transition: "background-color 0.2s",
-  };
-
   return (
-    <div style={{ padding: "1rem" }}>
+    <div
+      style={{
+        width: "300px",
+        padding: "1rem",
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        background: "white",
+        border: "1px solid #d1d5db",
+        borderRadius: "0.375rem",
+        zIndex: "2",
+      }}
+    >
       <div style={{ display: "flex" }}>
         <div style={{ flex: 1, marginBottom: "0.625rem" }}>
           Would you like to add metadata before downloading?
@@ -46,6 +50,7 @@ export default function DocMetadataPrompt({
           <FontAwesomeIcon icon={["fas", "xmark"]} />
         </div>
       </div>
+
       <div style={{ fontWeight: 600 }}>
         <div>
           <div> document title: (optional)</div>
@@ -65,6 +70,7 @@ export default function DocMetadataPrompt({
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
+
         <div>
           <div>author: (optional)</div>
           <input
@@ -75,32 +81,25 @@ export default function DocMetadataPrompt({
           />
         </div>
       </div>
-      <div style={{ marginTop: "1rem", display: "flex", gap: "0.5rem" }}>
-        <button
-          style={{
-            ...buttonBase,
-            backgroundColor: hoverBtn === "ignore" ? "#9ca3af" : "#d1d5db",
-            color: "black",
-          }}
-          onMouseEnter={() => setHoverBtn("ignore")}
-          onMouseLeave={() => setHoverBtn(null)}
-          onClick={() => handlePromptAction(promptAction, "ignore")}
-        >
-          Ignore
-        </button>
-        <button
-          style={{
-            ...buttonBase,
-            backgroundColor: hoverBtn === "add" ? "#2563eb" : "#3b82f6",
-            color: "white",
-          }}
-          onMouseEnter={() => setHoverBtn("add")}
-          onMouseLeave={() => setHoverBtn(null)}
-          onClick={() => handlePromptAction(promptAction, "add")}
-        >
-          Add
-        </button>
-      </div>
+
+      <button
+        style={{
+          width: "100%",
+          flex: 1,
+          padding: "0.5rem 1rem",
+          borderRadius: "0.375rem",
+          cursor: "pointer",
+          border: "none",
+          transition: "background-color 0.2s",
+          backgroundColor: hoverBtn === "add" ? "#2563eb" : "#3b82f6",
+          color: "white",
+        }}
+        onMouseEnter={() => setHoverBtn("add")}
+        onMouseLeave={() => setHoverBtn(null)}
+        onClick={() => handlePromptAction(promptAction)}
+      >
+        Download
+      </button>
     </div>
   );
 }

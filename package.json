@@ -1,6 +1,6 @@
 {
   "name": "draftify-react",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "type": "module",
   "main": "dist/draftify-react.umd.js",
   "module": "dist/draftify-react.es.js",
@@ -33,9 +33,11 @@
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.0",
     "browser-image-compression": "^2.0.2",
+    "draftify": "^0.1.4",
     "framer-motion": "^12.23.24"
   },
   "devDependencies": {
+    "@types/react": "^19.2.9",
     "@vitejs/plugin-react": "^5.0.4",
     "vite": "^7.1.7"
   },

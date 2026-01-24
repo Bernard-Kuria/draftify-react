@@ -20,8 +20,8 @@ import "./draftify.css";
 
 export default function DraftifyReact({
   // blocks data & modifier
-  blocksData,
-  modifyBlocks,
+  draftifyDoc,
+  setDoc,
 
   // options
   options,
@@ -107,8 +107,8 @@ export default function DraftifyReact({
     // block delete
     handleDelete,
   } = useDraftifyReact({
-    blocksData,
-    modifyBlocks,
+    draftifyDoc,
+    setDoc,
     defaultCustomData1,
     defaultCustomData2,
     defaultCustomData3,
@@ -128,7 +128,7 @@ export default function DraftifyReact({
         <ToolBar
           view={view}
           setView={setView}
-          blocksData={blocksData}
+          blocksData={draftifyDoc.blocks}
           setPromptAction={setPromptAction}
           setPromptVisiblility={setPromptVisiblility}
           handleCopy={handleCopy}
@@ -159,7 +159,7 @@ export default function DraftifyReact({
                 exit="hidden"
               >
                 <AnimatePresence>
-                  {blocksData.map((b, index) => (
+                  {draftifyDoc.blocks.map((b, index) => (
                     <motion.div
                       key={b.id}
                       layout
@@ -211,7 +211,7 @@ export default function DraftifyReact({
         {view === "preview" && (
           <div className="output-area" onSubmit={(e) => e.preventDefault()}>
             <DraftifyBlocksReader
-              blocksData={blocksData}
+              blocksData={draftifyDoc.blocks}
               CustomOutput1={CustomOutput1}
               CustomOutput2={CustomOutput2}
               CustomOutput3={CustomOutput3}

@@ -37,19 +37,17 @@ import {
 } from "draftify";
 
 export function useDraftifyReact({
-  blocksData,
-  modifyBlocks,
+  draftifyDoc,
+  setDoc,
   defaultCustomData1,
   defaultCustomData2,
   defaultCustomData3,
   localStorageEnable,
 }) {
-  // Document state
-  const [doc, setDoc] = useState({
-    metadata: {},
-    version: "1.0.0",
-    blocks: blocksData,
-  });
+  // Blocks data
+  const [blocksData, modifyBlocks] = useState(
+    normalizeBlock(draftifyDoc).blocks,
+  );
 
   // Document metadata states
   const [docTitle, setDocTitle] = useState("");
@@ -70,7 +68,7 @@ export function useDraftifyReact({
   useEffect(() => {
     if (!Array.isArray(blocksData)) {
       throw new Error(
-        "DraftifyReact: blocksData must be an array of DraftifyBlock[]"
+        "DraftifyReact: blocksData must be an array of DraftifyBlock[]",
       );
     }
 
@@ -86,7 +84,7 @@ export function useDraftifyReact({
         setDescription(parsedDoc.metadata?.description || "");
         setAuthor(parsedDoc.metadata?.author || "");
         modifyBlocks(
-          normalizeDocument(parsedDoc).blocks || normalizeBlock(blocksData)
+          normalizeDocument(parsedDoc).blocks || normalizeBlock(blocksData),
         );
       } else {
         modifyBlocks(normalizeBlock(blocksData));
@@ -106,53 +104,43 @@ export function useDraftifyReact({
             return { ...b, content: base64, file: undefined };
           }
           return b;
-        })
+        }),
       );
 
       localStorage.setItem(
         "draftifyDoc",
         JSON.stringify({
-          ...doc,
+          ...draftifyDoc,
           blocks: blocksCopy,
-        })
+        }),
       );
     };
 
     localStorageEnable && saveBlockData(blocksData);
-  }, [blocksData, doc]);
+  }, [blocksData, draftifyDoc]);
 
-  // Update document metadata whenever related states change
+  // Update document state and metadata whenever blocks or metadata states change
   useEffect(() => {
-    const defaultMetadata = {
-      docTitle: docTitle || "Untitled",
-      description: description || "",
-      author: author || "Unknown",
-      createdAt: new Date().toISOString(),
-    };
-
-    setDoc((prevDoc) => ({
-      ...prevDoc,
-      metadata: defaultMetadata,
-    }));
-  }, [docTitle, description, author]);
+    setDoc((prevDoc) =>
+      normalizeDocument({
+        ...prevDoc,
+        metadata: {
+          ...prevDoc.metadata,
+          docTitle,
+          description,
+          author,
+        },
+        blocks: blocksData,
+      }),
+    );
+  }, [docTitle, description, author, blocksData]);
 
   // Handle metadata actions from prompt
-  const handlePromptAction = (action, option) => {
-    const defaultMetadata = {
-      docTitle: "Untitled Document",
-      description: "",
-      author: "Unknown Author",
-      createdAt: new Date().toISOString(),
-    };
-
+  const handlePromptAction = (action) => {
     if (action === "downloadJSON") {
-      handleDownloadJSON(
-        option === "add" ? doc : { ...doc, metadata: defaultMetadata }
-      );
+      handleDownloadJSON(draftifyDoc);
     } else if (action === "exportDocx") {
-      exportBlocksToDocx(
-        option === "add" ? doc : { ...doc, metadata: defaultMetadata }
-      );
+      exportBlocksToDocx(draftifyDoc);
     }
 
     setPromptVisiblility(false);
@@ -219,31 +207,31 @@ export function useDraftifyReact({
 
   const modifyHeading = ({ headingBlockId, newContent, level }) => {
     modifyBlocks((prev) =>
-      modifyHeadingBlock(prev, headingBlockId, newContent, level)
+      modifyHeadingBlock(prev, headingBlockId, newContent, level),
     );
   };
 
   const modifySubheading = ({ subheadingBlockId, newContent }) => {
     modifyBlocks((prev) =>
-      modifySubheadingBlock(prev, subheadingBlockId, newContent)
+      modifySubheadingBlock(prev, subheadingBlockId, newContent),
     );
   };
 
   const modifyParagraph = ({ paragraphBlockId, newContent }) => {
     modifyBlocks((prev) =>
-      modifyParagraphBlock(prev, paragraphBlockId, newContent)
+      modifyParagraphBlock(prev, paragraphBlockId, newContent),
     );
   };
 
   const modifyQuote = ({ quoteBlockId, newContent, author }) => {
     modifyBlocks((prev) =>
-      modifyQuoteBlock(prev, quoteBlockId, newContent, author)
+      modifyQuoteBlock(prev, quoteBlockId, newContent, author),
     );
   };
 
   const modifyList = ({ listBlockId, listStyle, items }) => {
     modifyBlocks((prev) =>
-      modifyListBlock(prev, listBlockId, listStyle, items)
+      modifyListBlock(prev, listBlockId, listStyle, items),
     );
   };
 
@@ -253,7 +241,7 @@ export function useDraftifyReact({
 
   const modifyImage = ({ imageBlockId, src, alt, caption }) => {
     modifyBlocks((prev) =>
-      modifyImageBlock(prev, imageBlockId, src, alt, caption)
+      modifyImageBlock(prev, imageBlockId, src, alt, caption),
     );
   };
 
