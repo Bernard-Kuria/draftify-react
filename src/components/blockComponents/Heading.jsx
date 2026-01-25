@@ -6,12 +6,21 @@ const headingStyles = {
   width: "100%",
   fontSize: "24px",
   fontWeight: "630",
+  background: "transparent",
 };
 
-export default function HeadingEditor({ headingBlock, modifyHeading }) {
+export default function HeadingEditor({
+  headingBlock,
+  modifyHeading,
+  fontFamily,
+}) {
   return (
     <input
-      style={{ ...headingStyles, borderBottom: "1px solid #232323" }}
+      style={{
+        ...headingStyles,
+        fontFamily: fontFamily || headingStyles.fontFamily,
+        borderBottom: "1px solid #232323",
+      }}
       type="text"
       placeholder="Heading..."
       autoFocus
@@ -27,9 +36,15 @@ export default function HeadingEditor({ headingBlock, modifyHeading }) {
   );
 }
 
-export function HeadingOutput({ headingBlock }) {
+export function HeadingOutput({ headingBlock, fontFamily }) {
   return (
-    <h2 style={headingStyles} key={headingBlock.id}>
+    <h2
+      style={{
+        ...headingStyles,
+        fontFamily: fontFamily || headingStyles.fontFamily,
+      }}
+      key={headingBlock.id}
+    >
       {headingBlock.data.text}
     </h2>
   );

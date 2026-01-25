@@ -6,12 +6,17 @@ const listStyles = {
   width: "100%",
   fontSize: "14px",
   listStyleType: "disc",
+  background: "transparent",
 };
 
-export default function ListEditor({ listBlock, modifyList }) {
+export default function ListEditor({ listBlock, modifyList, fontFamily }) {
   return (
     <input
-      style={{ ...listStyles, borderBottom: "1px solid #232323" }}
+      style={{
+        ...listStyles,
+        borderBottom: "1px solid #232323",
+        fontFamily: fontFamily || listStyles.fontFamily,
+      }}
       type="text"
       placeholder="separate items using comma"
       autoFocus
@@ -27,9 +32,12 @@ export default function ListEditor({ listBlock, modifyList }) {
   );
 }
 
-export function ListOutput({ listBlock }) {
+export function ListOutput({ listBlock, fontFamily }) {
   return (
-    <ul key={listBlock.id} style={listStyles}>
+    <ul
+      key={listBlock.id}
+      style={{ ...listStyles, fontFamily: fontFamily || listStyles.fontFamily }}
+    >
       {listBlock.data.items.map((item, idx) => (
         <li key={idx}>{item}</li>
       ))}

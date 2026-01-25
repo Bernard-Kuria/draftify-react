@@ -17,6 +17,7 @@ export default function DocMetadataPrompt({
   // Common styles
   const inputStyle = {
     width: "100%",
+    boxSizing: "border-box",
     border: "1px solid #d1d5db",
     borderRadius: "0.375rem",
     padding: "0.25rem",
@@ -39,16 +40,16 @@ export default function DocMetadataPrompt({
         zIndex: "2",
       }}
     >
-      <div style={{ display: "flex" }}>
-        <div style={{ flex: 1, marginBottom: "0.625rem" }}>
-          Would you like to add metadata before downloading?
-        </div>
-        <div
+      <div style={{ textAlign: "right", marginBottom: "5px" }}>
+        <FontAwesomeIcon
+          icon={["fas", "xmark"]}
           style={{ cursor: "pointer" }}
           onClick={() => setPromptVisiblility(false)}
-        >
-          <FontAwesomeIcon icon={["fas", "xmark"]} />
-        </div>
+        />
+      </div>
+
+      <div style={{ flex: 1, marginBottom: "0.625rem" }}>
+        Would you like to add metadata before downloading?
       </div>
 
       <div style={{ fontWeight: 600 }}>

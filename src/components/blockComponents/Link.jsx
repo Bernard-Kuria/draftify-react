@@ -7,9 +7,10 @@ const linkStyles = {
   outline: "none",
   width: "100%",
   fontSize: "14px",
+  background: "transparent",
 };
 
-export default function LinkEditor({ linkBlock, modifyLink }) {
+export default function LinkEditor({ linkBlock, modifyLink, fontFamily }) {
   const [linkText, setLinkText] = useState(linkBlock.data.linkText);
   const [url, setUrl] = useState(linkBlock.data.url);
 
@@ -24,6 +25,7 @@ export default function LinkEditor({ linkBlock, modifyLink }) {
           ...linkStyles,
           color: "#232323",
           borderBottom: "1px solid #232323",
+          fontFamily: fontFamily || linkStyles.fontFamily,
         }}
         type="text"
         placeholder="Enter link text..."
@@ -37,6 +39,7 @@ export default function LinkEditor({ linkBlock, modifyLink }) {
           ...linkStyles,
           color: "var(--hovered-draftify-theme-color)",
           borderBottom: "1px solid #232323",
+          fontFamily: fontFamily || linkStyles.fontFamily,
         }}
         type="url"
         placeholder="url"
@@ -49,10 +52,14 @@ export default function LinkEditor({ linkBlock, modifyLink }) {
   );
 }
 
-export function LinkOutput({ linkBlock }) {
+export function LinkOutput({ linkBlock, fontFamily }) {
   return (
     <a
-      style={{ ...linkStyles, color: "#3b82f6" }}
+      style={{
+        ...linkStyles,
+        color: "#3b82f6",
+        fontFamily: fontFamily || linkStyles.fontFamily,
+      }}
       key={linkBlock.id}
       href={linkBlock.data.url}
     >

@@ -9,12 +9,17 @@ const quoteStyles = {
   fontStyle: "italic",
   paddingLeft: "8px",
   fontWeight: "400",
+  background: "transparent",
 };
 
-export default function QuoteEditor({ quoteBlock, modifyQuote }) {
+export default function QuoteEditor({ quoteBlock, modifyQuote, fontFamily }) {
   return (
     <input
-      style={{ ...quoteStyles, borderBottom: "1px solid #232323" }}
+      style={{
+        ...quoteStyles,
+        borderBottom: "1px solid #232323",
+        fontFamily: fontFamily || quoteStyles.fontFamily,
+      }}
       type="text"
       placeholder="Quote..."
       autoFocus
@@ -30,9 +35,15 @@ export default function QuoteEditor({ quoteBlock, modifyQuote }) {
   );
 }
 
-export function QuoteOutput({ quoteBlock }) {
+export function QuoteOutput({ quoteBlock, fontFamily }) {
   return (
-    <blockquote key={quoteBlock.id} style={quoteStyles}>
+    <blockquote
+      key={quoteBlock.id}
+      style={{
+        ...quoteStyles,
+        fontFamily: fontFamily || quoteStyles.fontFamily,
+      }}
+    >
       {quoteBlock.data.text}
     </blockquote>
   );

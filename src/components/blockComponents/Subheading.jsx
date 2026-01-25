@@ -6,15 +6,21 @@ const subheadingStyles = {
   width: "100%",
   fontSize: "20px",
   fontWeight: "600",
+  background: "transparent",
 };
 
 export default function SubheadingEditor({
+  fontFamily,
   subheadingBlock,
   modifySubheading,
 }) {
   return (
     <input
-      style={{ ...subheadingStyles, borderBottom: "1px solid #232323" }}
+      style={{
+        ...subheadingStyles,
+        borderBottom: "1px solid #232323",
+        fontFamily: fontFamily || subheadingStyles.fontFamily,
+      }}
       type="text"
       placeholder="sub heading ..."
       autoFocus
@@ -29,9 +35,15 @@ export default function SubheadingEditor({
   );
 }
 
-export function SubheadingOutput({ subheadingBlock }) {
+export function SubheadingOutput({ subheadingBlock, fontFamily }) {
   return (
-    <h2 key={subheadingBlock.id} style={subheadingStyles}>
+    <h2
+      key={subheadingBlock.id}
+      style={{
+        ...subheadingStyles,
+        fontFamily: fontFamily || subheadingStyles.fontFamily,
+      }}
+    >
       {subheadingBlock.data.text}
     </h2>
   );

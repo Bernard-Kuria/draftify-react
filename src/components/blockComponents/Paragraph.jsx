@@ -5,12 +5,21 @@ const paragraphStyles = {
   outline: "none",
   width: "100%",
   height: "fit-content",
+  background: "transparent",
 };
 
-export default function ParagraphEditor({ paragraphBlock, modifyParagraph }) {
+export default function ParagraphEditor({
+  paragraphBlock,
+  modifyParagraph,
+  fontFamily,
+}) {
   return (
     <textarea
-      style={{ ...paragraphStyles, borderBottom: "1px solid #232323" }}
+      style={{
+        ...paragraphStyles,
+        borderBottom: "1px solid #232323",
+        fontFamily: fontFamily || paragraphStyles.fontFamily,
+      }}
       placeholder="Write something..."
       autoFocus
       value={paragraphBlock.data.text}
@@ -24,9 +33,15 @@ export default function ParagraphEditor({ paragraphBlock, modifyParagraph }) {
   );
 }
 
-export function ParagraphOutput({ paragraphBlock }) {
+export function ParagraphOutput({ paragraphBlock, fontFamily }) {
   return (
-    <p key={paragraphBlock.id} style={paragraphStyles}>
+    <p
+      key={paragraphBlock.id}
+      style={{
+        ...paragraphStyles,
+        fontFamily: fontFamily || paragraphStyles.fontFamily,
+      }}
+    >
       {paragraphBlock.data.text}
     </p>
   );

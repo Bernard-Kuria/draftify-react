@@ -10,7 +10,7 @@ const tableStyles = {
   tableLayout: "fixed",
 };
 
-export default function TableEditor({ tableBlock, modifyTable }) {
+export default function TableEditor({ tableBlock, modifyTable, fontFamily }) {
   const { data } = tableBlock;
 
   if (!data?.body?.length) return null;
@@ -21,31 +21,37 @@ export default function TableEditor({ tableBlock, modifyTable }) {
   };
 
   return (
-    <table style={tableStyles}>
+    <table
+      style={{
+        ...tableStyles,
+        fontFamily: fontFamily || tableStyles.fontFamily,
+      }}
+    >
       <thead>
         <tr>
           {tableBlock.data?.head?.map((cell, idx) => (
             <th
               key={idx}
               style={{
-                border: "1px solid #ccc",
+                border: "1px solid #e5e7eb",
                 padding: "8px",
-                backgroundColor: "#f9f9f9",
               }}
             >
               <input
                 type="text"
+                placeholder={`Col ${idx + 1}`}
                 style={{
                   border: "none",
                   borderBottom: "1px solid #3b82f6",
                   outline: "none",
                   width: "100%",
                   background: "transparent",
+                  fontFamily: fontFamily || tableStyles.fontFamily,
                 }}
                 value={cell.content}
                 onChange={(e) => {
                   const updatedHead = tableBlock.data.head.map((h) =>
-                    h.id === cell.id ? { ...h, content: e.target.value } : h
+                    h.id === cell.id ? { ...h, content: e.target.value } : h,
                   );
                   const updatedTable = {
                     ...tableBlock.data,
@@ -68,7 +74,7 @@ export default function TableEditor({ tableBlock, modifyTable }) {
               <td
                 key={`${i}-${j}`}
                 style={{
-                  border: "1px solid #ccc",
+                  border: "1px solid #e5e7eb",
                   padding: "8px",
                 }}
               >
@@ -80,18 +86,20 @@ export default function TableEditor({ tableBlock, modifyTable }) {
                     outline: "none",
                     width: "100%",
                     fontSize: "14px",
+                    background: "transparent",
+                    fontFamily: fontFamily || tableStyles.fontFamily,
                   }}
                   placeholder={`Row ${i + 1}, Col ${j + 1}`}
                   value={
                     data.body.find(
-                      (cell) => cell.id[0] === i && cell.id[1] === j
+                      (cell) => cell.id[0] === i && cell.id[1] === j,
                     )?.content || ""
                   }
                   onChange={(e) => {
                     const updatedBody = data.body.map((cell) =>
                       cell.id[0] === i && cell.id[1] === j
                         ? { ...cell, content: e.target.value }
-                        : cell
+                        : cell,
                     );
 
                     const updatedTable = { ...data, body: updatedBody };
@@ -111,7 +119,7 @@ export default function TableEditor({ tableBlock, modifyTable }) {
   );
 }
 
-export function TableOutput({ tableBlock }) {
+export function TableOutput({ tableBlock, fontFamily }) {
   if (!tableBlock.data || !tableBlock.data.head || !tableBlock.data.body) {
     return null;
   }
@@ -129,7 +137,13 @@ export function TableOutput({ tableBlock }) {
   }, []);
 
   return (
-    <table key={tableBlock.id} style={tableStyles}>
+    <table
+      key={tableBlock.id}
+      style={{
+        ...tableStyles,
+        fontFamily: fontFamily || tableStyles.fontFamily,
+      }}
+    >
       <thead>
         <tr style={{ backgroundColor: "#f3f4f6" }}>
           {head.map((cell) => (
@@ -203,6 +217,7 @@ export function RenderHoverTable({ handleClick }) {
     textAlign: "center",
     border: "1px solid #d1d5db",
     borderRadius: "5px",
+    background: "transparent",
   };
 
   const rowColBtnSetter = {

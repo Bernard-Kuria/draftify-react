@@ -22,7 +22,7 @@ const blocks = [
   { id: 13, type: "custom-3", iconText: "C3" },
 ];
 
-export default function Options({ handleClick, options }) {
+export default function Options({ handleClick, options, fontFamily }) {
   const [activeId, setActiveId] = useState(null);
 
   const selectOption = (id, blockType) => {
@@ -52,7 +52,7 @@ export default function Options({ handleClick, options }) {
         const tooltipText = isCustom(block)
           ? (() => {
               const matchingOption = options.find((o) =>
-                o.startsWith(block.type + "-")
+                o.startsWith(block.type + "-"),
               );
 
               return matchingOption
@@ -87,7 +87,7 @@ export default function Options({ handleClick, options }) {
                   <div>
                     {(() => {
                       const matchingOption = options.find((o) =>
-                        o.startsWith(block.type + "-")
+                        o.startsWith(block.type + "-"),
                       );
                       return matchingOption
                         ? matchingOption.split("-")[2] || block.iconText

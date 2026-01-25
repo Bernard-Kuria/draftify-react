@@ -1,8 +1,9 @@
+// modules
 // eslint-disable-next-line no-unused-vars
 import { motion, AnimatePresence } from "framer-motion";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+// Components
 import Editor from "./components/Editor";
 import Options from "./components/Options";
 import DraftifyBlocksReader from "./components/DraftifyBlocksReader";
@@ -11,11 +12,14 @@ import Grabber from "./components/Grabber";
 import BackGround from "./components/Background";
 import DocMetadataPrompt from "./components/DocMetadataPrompt";
 
+// Hooks
 import { useDraftifyReact } from "./hooks/useDraftifyReact";
 import { useGenerateGrid } from "./hooks/backgroundHooks/backGroundEffects";
 
+// Assets
 import "./utils/icons";
 
+// Styling
 import "./draftify.css";
 
 export default function DraftifyReact({
@@ -49,6 +53,9 @@ export default function DraftifyReact({
 
   // draftify container background set
   DraftifyBackground,
+
+  // font styling
+  fontFamily = null,
 }) {
   const {
     // current view
@@ -122,17 +129,13 @@ export default function DraftifyReact({
       {backgroundEnable && <BackGround gridDots={gridDots} />}
 
       <div
-        style={{ backgroundColor: DraftifyBackground }}
+        style={{
+          backgroundImage: DraftifyBackground,
+          backgroundColor: DraftifyBackground,
+        }}
         className="draftify-container"
       >
-        <ToolBar
-          view={view}
-          setView={setView}
-          blocksData={draftifyDoc.blocks}
-          setPromptAction={setPromptAction}
-          setPromptVisiblility={setPromptVisiblility}
-          handleCopy={handleCopy}
-        />
+        {/* Document metadata input window */}
 
         {promptVisibility && (
           <DocMetadataPrompt
@@ -148,9 +151,22 @@ export default function DraftifyReact({
           />
         )}
 
+        {/* Tool Bar section */}
+
+        <ToolBar
+          view={view}
+          setView={setView}
+          blocksData={draftifyDoc.blocks}
+          setPromptAction={setPromptAction}
+          setPromptVisiblility={setPromptVisiblility}
+          handleCopy={handleCopy}
+        />
+
         {view === "editor" && (
+          // Input View
           <>
             <Options handleClick={handleClick} options={options} />
+
             <div className="editor-area" onSubmit={(e) => e.preventDefault()}>
               <motion.div
                 style={{ display: "grid", gap: "10px" }}
@@ -178,6 +194,7 @@ export default function DraftifyReact({
                       <Grabber />
 
                       <Editor
+                        fontFamily={fontFamily}
                         block={b}
                         modifyHeading={modifyHeading}
                         modifySubheading={modifySubheading}
@@ -208,9 +225,12 @@ export default function DraftifyReact({
           </>
         )}
 
+        {/* Output View */}
+
         {view === "preview" && (
-          <div className="output-area" onSubmit={(e) => e.preventDefault()}>
+          <div className="output-area">
             <DraftifyBlocksReader
+              fontFamily={fontFamily}
               blocksData={draftifyDoc.blocks}
               CustomOutput1={CustomOutput1}
               CustomOutput2={CustomOutput2}
@@ -218,6 +238,11 @@ export default function DraftifyReact({
             />
           </div>
         )}
+
+        <em style={{ fontSize: "11px", fontWeight: "semibold", color: "blue" }}>
+          The document title, description and author can be added when exporting
+          or downloading.
+        </em>
       </div>
     </div>
   );

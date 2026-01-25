@@ -250,12 +250,15 @@ export interface DraftifyReactProps {
   backgroundEnable?: boolean;
 
   DraftifyBackground?: string;
+
+  fontFamily?: string;
 }
 
 declare function DraftifyReact(props: DraftifyReactProps): JSX.Element;
 
 export interface ReaderProps {
   blocksData: DraftifyBlock[];
+  fontFamily?: string;
   CustomOutput1?: ({
     customBlock,
     modifyCustom,

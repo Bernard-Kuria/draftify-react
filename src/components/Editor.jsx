@@ -9,6 +9,7 @@ import LinkEditor from "./blockComponents/Link.jsx";
 import CodeEditor from "./blockComponents/Code.jsx";
 
 export default function Editor({
+  fontFamily,
   block,
   modifyHeading,
   modifySubheading,
@@ -29,13 +30,18 @@ export default function Editor({
   switch (block.type) {
     case "heading":
       return (
-        <HeadingEditor headingBlock={block} modifyHeading={modifyHeading} />
+        <HeadingEditor
+          headingBlock={block}
+          modifyHeading={modifyHeading}
+          fontFamily={fontFamily}
+        />
       );
     case "subheading":
       return (
         <SubheadingEditor
           subheadingBlock={block}
           modifySubheading={modifySubheading}
+          fontFamily={fontFamily}
         />
       );
     case "paragraph":
@@ -43,20 +49,45 @@ export default function Editor({
         <ParagraphEditor
           paragraphBlock={block}
           modifyParagraph={modifyParagraph}
+          fontFamily={fontFamily}
         />
       );
     case "quote":
-      return <QuoteEditor quoteBlock={block} modifyQuote={modifyQuote} />;
+      return (
+        <QuoteEditor
+          quoteBlock={block}
+          modifyQuote={modifyQuote}
+          fontFamily={fontFamily}
+        />
+      );
     case "list":
-      return <ListEditor listBlock={block} modifyList={modifyList} />;
+      return (
+        <ListEditor
+          listBlock={block}
+          modifyList={modifyList}
+          fontFamily={fontFamily}
+        />
+      );
     case "table":
-      return <TableEditor tableBlock={block} modifyTable={modifyTable} />;
+      return (
+        <TableEditor
+          tableBlock={block}
+          modifyTable={modifyTable}
+          fontFamily={fontFamily}
+        />
+      );
     case "image":
       return <MediaEditor mediaBlock={block} modifyMedia={modifyImage} />;
     case "video":
       return <MediaEditor mediaBlock={block} modifyMedia={modifyVideo} />;
     case "link":
-      return <LinkEditor linkBlock={block} modifyLink={modifyLink} />;
+      return (
+        <LinkEditor
+          linkBlock={block}
+          modifyLink={modifyLink}
+          fontFamily={fontFamily}
+        />
+      );
     case "code":
       return <CodeEditor codeBlock={block} modifyCode={modifyCode} />;
     case "custom-1":

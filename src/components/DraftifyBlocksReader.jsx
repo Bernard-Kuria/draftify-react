@@ -10,6 +10,7 @@ import { LinkOutput } from "./blockComponents/Link";
 import { CodeOutput } from "./blockComponents/Code";
 
 export default function DraftifyBlocksReader({
+  fontFamily,
   blocksData,
   CustomOutput1,
   CustomOutput2,
@@ -20,23 +21,65 @@ export default function DraftifyBlocksReader({
     blocksData.map((block) => {
       switch (block.type) {
         case "heading":
-          return <HeadingOutput key={block.id} headingBlock={block} />;
+          return (
+            <HeadingOutput
+              key={block.id}
+              headingBlock={block}
+              fontFamily={fontFamily}
+            />
+          );
         case "subheading":
-          return <SubheadingOutput key={block.id} subheadingBlock={block} />;
+          return (
+            <SubheadingOutput
+              key={block.id}
+              subheadingBlock={block}
+              fontFamily={fontFamily}
+            />
+          );
         case "paragraph":
-          return <ParagraphOutput key={block.id} paragraphBlock={block} />;
+          return (
+            <ParagraphOutput
+              key={block.id}
+              paragraphBlock={block}
+              fontFamily={fontFamily}
+            />
+          );
         case "quote":
-          return <QuoteOutput key={block.id} quoteBlock={block} />;
+          return (
+            <QuoteOutput
+              key={block.id}
+              quoteBlock={block}
+              fontFamily={fontFamily}
+            />
+          );
         case "list":
-          return <ListOutput key={block.id} listBlock={block} />;
+          return (
+            <ListOutput
+              key={block.id}
+              listBlock={block}
+              fontFamily={fontFamily}
+            />
+          );
         case "table":
-          return <TableOutput key={block.id} tableBlock={block} />;
+          return (
+            <TableOutput
+              key={block.id}
+              tableBlock={block}
+              fontFamily={fontFamily}
+            />
+          );
         case "image":
           return <ImageOutput key={block.id} imageBlock={block} />;
         case "video":
           return <VideoOutput key={block.id} videoBlock={block} />;
         case "link":
-          return <LinkOutput key={block.id} linkBlock={block} />;
+          return (
+            <LinkOutput
+              key={block.id}
+              linkBlock={block}
+              fontFamily={fontFamily}
+            />
+          );
         case "code":
           return <CodeOutput key={block.id} codeBlock={block} />;
         case "custom-1":
