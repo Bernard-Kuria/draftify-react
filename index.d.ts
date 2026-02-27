@@ -249,6 +249,8 @@ export interface DraftifyReactProps {
 
   backgroundEnable?: boolean;
 
+  ToolBarEnable?: boolean;
+
   DraftifyBackground?: string;
 
   fontFamily?: string;

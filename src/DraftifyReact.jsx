@@ -56,6 +56,9 @@ export default function DraftifyReact({
 
   // font styling
   fontFamily = null,
+
+  // enable toolbar
+  ToolBarEnable,
 }) {
   const {
     // current view
@@ -83,6 +86,9 @@ export default function DraftifyReact({
     setPromptAction,
     promptVisibility,
     setPromptVisiblility,
+
+    // blocks data
+    blocksData,
 
     // block creator
     handleClick,
@@ -153,14 +159,16 @@ export default function DraftifyReact({
 
         {/* Tool Bar section */}
 
-        <ToolBar
-          view={view}
-          setView={setView}
-          blocksData={draftifyDoc.blocks}
-          setPromptAction={setPromptAction}
-          setPromptVisiblility={setPromptVisiblility}
-          handleCopy={handleCopy}
-        />
+        {ToolBarEnable && (
+          <ToolBar
+            view={view}
+            setView={setView}
+            blocksData={draftifyDoc.blocks}
+            setPromptAction={setPromptAction}
+            setPromptVisiblility={setPromptVisiblility}
+            handleCopy={handleCopy}
+          />
+        )}
 
         {view === "editor" && (
           // Input View
@@ -175,7 +183,7 @@ export default function DraftifyReact({
                 exit="hidden"
               >
                 <AnimatePresence>
-                  {draftifyDoc.blocks.map((b, index) => (
+                  {blocksData.map((b, index) => (
                     <motion.div
                       key={b.id}
                       layout
@@ -239,10 +247,14 @@ export default function DraftifyReact({
           </div>
         )}
 
-        <em style={{ fontSize: "11px", fontWeight: "semibold", color: "blue" }}>
-          The document title, description and author can be added when exporting
-          or downloading.
-        </em>
+        {ToolBarEnable && (
+          <em
+            style={{ fontSize: "11px", fontWeight: "semibold", color: "blue" }}
+          >
+            The document title, description and author can be added when
+            exporting or downloading.
+          </em>
+        )}
       </div>
     </div>
   );
